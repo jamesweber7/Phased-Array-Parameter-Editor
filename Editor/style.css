@@ -1,0 +1,305 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+body * {
+    margin: 0;
+    padding: 0;
+}
+
+grid-container {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 2fr 1fr;
+    /* 2/3 and 1/3 width ratio */
+    grid-template-rows: 1fr 1fr;
+    /* Equal height for the two rows */
+    grid-template-areas:
+        "left top-right"
+        "left bottom-right";
+}
+
+.grid-left {
+    grid-area: left;
+}
+
+.grid-top-right {
+    grid-area: top-right;
+}
+
+.grid-bottom-right {
+    grid-area: bottom-right;
+}
+
+.edge-container {
+    height: 100%;
+}
+
+#graph-extra-controls {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    width: 150px;
+    max-height: calc(100vh - 20px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#graph-extra-controls::-webkit-scrollbar {
+    display: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+input[type="number"] {
+    outline: none;
+}
+
+.no-step-arrows {
+    -moz-appearance: textfield;
+    /* No Arrows */
+}
+
+.no-step-arrows::-webkit-outer-spin-button,
+.no-step-arrows::-webkit-inner-spin-button {
+    /* No Arrows */
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#interpolation-functions button,
+#interpolation-functions input[type="number"] {
+    display: block;
+    margin-top: 20px;
+    outline: none;
+}
+
+#interpolation-functions button {
+    width: 100%;
+}
+
+#interpolation-functions input[type="number"] {
+    width: calc(100% - 3px);
+    margin-top: 5px;
+}
+
+button.selected {
+    border: 2px solid black;
+}
+
+#interpolation-functions button svg {
+    display: block;
+    margin: auto;
+}
+
+#input-coordinate-box * {
+    display: inline;
+}
+
+#input-coordinate-box input[type="number"] {
+    width: 50px;
+    background: none;
+    border: none;
+    outline: none;
+    margin: 0;
+    -moz-appearance: textfield;
+    /* No Arrows */
+}
+
+#input-coordinate-box input[type="number"]::-webkit-outer-spin-button,
+#input-coordinate-box input[type="number"]::-webkit-inner-spin-button {
+    /* No Arrows */
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.axis-extra-controls {
+    position: absolute;
+    transform: translateY(30px);
+}
+
+.axis-extra-controls .extra-controls-mb * {
+    display: block;
+}
+
+.axis-extra-controls .extra-controls-mb {
+    padding-left: 20px;
+}
+
+.axis-extra-controls button,
+.axis-extra-controls input[type="number"] {
+    margin-top: 4px;
+}
+
+.step-count {
+    /* -webkit-appearance: none; */
+    margin-top: 5px;
+    width: 45px;
+}
+
+.curve-types button svg {
+    display: block;
+    margin: auto;
+}
+
+.dropdown {
+    pointer-events: none;
+}
+
+.dropdown>* {
+    pointer-events: auto;
+}
+
+.axis-extra-controls-mb,
+.axis-extra-controls-mb>div {
+    pointer-events: none;
+}
+
+.axis-extra-controls-mb button,
+.axis-extra-controls-mb input {
+    pointer-events: auto;
+}
+
+.unformatted-input {
+    background: none;
+    text-decoration: none;
+    border: none;
+}
+
+.edge-label-row {
+    position: absolute;
+    transform: translate(10px, 10px);
+}
+
+.edge-label {
+    color: white;
+    outline: none;
+    width: 40px;
+}
+
+.grid-switch-arrow {
+    display: inline-block;
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-right: 10px;
+    color: white;
+}
+
+.edge-iframe {
+    width: 100%;
+    height: 100%;
+}
+
+help {
+    cursor: help;
+    font-family: "Serif";
+}
+
+help:hover {
+    animation: bob 0.75s linear infinite;
+}
+
+@keyframes bob {
+
+    from,
+    to {
+        transform: translateY(0);
+    }
+
+    25% {
+        transform: translateY(5%);
+    }
+
+    75% {
+        transform: translateY(-5%);
+    }
+}
+
+#coons-patch-help {
+    animation: none;
+    color: gray;
+    margin-left: 10px;
+    font-size: 24px;
+    display: inline-block;
+    transform: translateY(2px);
+}
+
+#incorporating-jnds-window {
+    position: absolute;
+    display: block;
+    background: white;
+    border: 1px solid black;
+    padding: 15px;
+    width: fit-content;
+}
+
+#incorporating-jnds-window row {
+    display: block;
+    margin: 10px;
+}
+
+#incorporating-jnds-window row label {
+    font-size: 30px;
+    margin-right: 8px;
+}
+
+#incorporating-jnds-window row * {
+    display: inline-block;
+}
+
+#incorporating-jnds-window row select,
+#incorporating-jnds-window row option,
+#incorporating-jnds-window row input,
+#incorporating-jnds-window row output,
+#incorporating-jnds-window row input-decorator {
+    font-size: 23px;
+    font-family: Arial;
+}
+
+#incorporating-jnds-window #add-to-axis-row button {
+    margin-right: 20px;
+    background: white;
+    border-radius: 2px;
+    padding: 2px;
+    font-size: 16px;
+}
+
+#incorporating-jnds-window #add-to-axis-row button:hover {
+    background: #eee;
+}
+
+#close-incorporating-jnds-window {
+    background: none;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#weber-fraction {
+    border: none;
+    width: 75px;
+    text-align: right;
+    outline: none;
+}
+
+#incorporating-jnds-window help {
+    font-size: 30px;
+    margin-left: 5px;
+}
+
+#incorporating-jnds-window help.jnd-fraction-help {
+    margin-left: 22px;
+}
+
+#incorporating-jnds-window .descriptor {
+    font-size: 20px;
+    display: block;
+}

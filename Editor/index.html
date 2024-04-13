@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta name="description" content="This is a multi-input graphical surface editor for mid-air haptic parameter control. It can stand on its own or be used in conjunction with another development software. Submitted as an Honors Thesis to Barrett, the Honors College at Arizona State University.">
+        <meta name="keywords" content="graphical surface editor, graphical curve editor, mid-air haptics, phased array control, haptic parameter design, user interface for mid-air haptics, development tool for mid-air haptics">
+        <meta name="author" content="James Weber">
+
+        <title>Mid-Air Haptic Parameter Editor</title>
+        <link rel="stylesheet" href="style.css">
+        <script defer src="ui-functions.js"></script>
+        <script defer src="ui.js"></script>
+        <script defer src="ExternalInterfacer.js"></script>
+        <script defer src="editor_communication.js"></script>
+        <script defer src="external_communication.js"></script>
+    </head>
+    <body>
+        <!-- Container for each component -->
+        <grid-container>
+            <div class="grid-left">
+                <iframe id="3d-graph" src="Surface_Editor_3D/index.html"
+                    style="width:100%; height:100%;"></iframe>
+                    <div id="graph-extra-controls"
+                class="dropdown graph-extra-controls extra-controls">
+                <div id="graph-extra-controls-wand" class="wand"
+                    style="transform: scale(0.5); cursor: pointer; display: block; float: left; opacity: 0.6;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                        height="100">
+                        <circle cx="10" cy="20" r="10" fill="black" />
+                        <circle cx="10" cy="50" r="10" fill="black" />
+                        <circle cx="10" cy="80" r="10" fill="black" />
+                    </svg>
+                </div>
+                <div id="graph-extra-controls-mb" class="hidden"
+                    style="width: 100%;">
+                    <div id="input-coordinate-box">
+                        Input
+                        <br />
+                        (<input type="number" min=0 max=1 id="x-input"
+                            step="0.05">,<input type="number" min=0 max=1
+                            id="y-input" step="0.05">)
+                        <br />
+                        Output
+                        <br />
+                        <div id="z-output"></div>
+                    </div>
+                    <div id="interpolation-functions">
+                        <!-- Sinusoidal Interpolation -->
+                        <!-- Sinusoidal Interpolation is similar to the polynomial curve; I am commenting it out because it isn't unique enough to justify being another option the user will need to understand and learn before using the editor -->
+                        <!-- <button title="Sinusoidal Interpolation">
+                            Sin
+                            <svg height="100" width="100"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M0.0,100.0 1.01,99.97 2.02,99.9 3.03,99.77 4.04,99.6 5.05,99.37 6.06,99.1 7.07,98.77 8.08,98.4 9.09,97.97 10.1,97.5 11.11,96.98 12.12,96.42 13.13,95.81 14.14,95.15 15.15,94.44 16.16,93.69 17.17,92.9 18.18,92.06 19.19,91.18 20.2,90.26 21.21,89.3 22.22,88.3 23.23,87.26 24.24,86.19 25.25,85.07 26.26,83.93 27.27,82.74 28.28,81.53 29.29,80.28 30.3,79.0 31.31,77.7 32.32,76.36 33.33,75.0 34.34,73.61 35.35,72.2 36.36,70.77 37.37,69.32 38.38,67.84 39.39,66.35 40.4,64.85 41.41,63.32 42.42,61.79 43.43,60.24 44.44,58.68 45.45,57.12 46.46,55.54 47.47,53.96 48.48,52.38 49.49,50.79 50.51,49.21 51.52,47.62 52.53,46.04 53.54,44.46 54.55,42.88 55.56,41.32 56.57,39.76 57.58,38.21 58.59,36.68 59.6,35.15 60.61,33.65 61.62,32.16 62.63,30.68 63.64,29.23 64.65,27.8 65.66,26.39 66.67,25.0 67.68,23.64 68.69,22.3 69.7,20.998 70.71,19.72 71.72,18.47 72.73,17.26 73.74,16.07 74.75,14.93 75.76,13.81 76.77,12.74 77.78,11.7 78.79,10.7 79.8,9.74 80.81,8.74 81.82,7.94 82.83,7.1 83.84,6.31 84.85,5.56 85.86,4.85 86.87,4.19 87.88,3.58 88.89,3.02 89.9,2.5 90.91,2.03 91.92,1.6 92.93,1.23 93.94,0.9 94.95,0.63 95.96,0.4 96.97,0.23 97.98,0.1 98.99,0.03 100.0,0.0"
+                                    stroke="blue" fill="none" />
+                            </svg>
+                        </button> -->
+                        <button class="selected" title="Linear Interpolation.&#10;The z-value for each point (x,y) is the linear interpolation between the z-value of its projection on the x-axis and the z-value of its projection on the y-axis">
+                            Linear
+                            <svg height="100" width="100">
+                                <line x1="0" y1="100" x2="100" y2="0"
+                                    style="stroke:blue;stroke-width:1" />
+                            </svg>
+                        </button>
+                        <button id="polynomial-interpolation-btn" title="Polynomial Interpolation.&#10;Each point weighs the edge it's closer to based on a polynomial degree.&#10;The z-value for each point (x,y) is the polynomial interpolation between the z-value of its projection on the x-axis and the z-value of its projection on the y-axis, with the weight of each axis relating its proximity to the point, and the degree being specified below.">
+                            Polynomial
+                            <svg height="100" width="100">
+                                <path id="polynomial-svg-path" stroke="blue"
+                                    fill="none"
+                                    d="M0 100 L1 99.9996 L2 99.9968 L3 99.9892 L4 99.9744 L5 99.95 L6 99.9136 L7.000000000000001 99.8628 L8 99.7952 L9 99.7084 L10 99.6 L11 99.4676 L12 99.30879999999999 L13 99.1212 L14.000000000000002 98.9024 L15 98.65 L16 98.36160000000001 L17 98.0348 L18 97.6672 L19 97.2564 L20 96.8 L21 96.29560000000001 L22 95.74080000000001 L23 95.1332 L24 94.4704 L25 93.75 L26 92.9696 L27 92.1268 L28.000000000000004 91.2192 L28.999999999999996 90.2444 L30 89.2 L31 88.08359999999999 L32 86.8928 L33 85.6252 L34 84.2784 L35 82.85 L36 81.3376 L37 79.7388 L38 78.0512 L39 76.27239999999999 L40 74.4 L41 72.4316 L42 70.3648 L43 68.19720000000001 L44 65.9264 L45 63.55 L46 61.065599999999996 L47 58.4708 L48 55.76320000000001 L49 52.9404 L50 50 L51 47.0596 L52 44.23679999999999 L53 41.5292 L54 38.93439999999999 L55.00000000000001 36.449999999999996 L56.00000000000001 34.07359999999999 L56.99999999999999 31.80280000000001 L57.99999999999999 29.635200000000005 L59 27.568400000000004 L60 25.6 L61 23.727600000000002 L62 21.948800000000002 L63 20.261200000000002 L64 18.6624 L65 17.15 L66 15.721600000000002 L67 14.374799999999999 L68 13.107199999999997 L69 11.916400000000005 L70 10.80000000000001 L71 9.755599999999998 L72 8.7808 L73 7.873200000000002 L74 7.030400000000004 L75 6.25 L76 5.529600000000001 L77 4.866799999999993 L78 4.259199999999996 L79 3.7043999999999966 L80 3.200000000000003 L81 2.7436000000000016 L82 2.3328000000000015 L83 1.9652000000000003 L84 1.6383999999999954 L85 1.3499999999999956 L86 1.0975999999999986 L87 0.8788000000000018 L88 0.6912000000000029 L89 0.5323999999999995 L90 0.40000000000000036 L91 0.29160000000000297 L92 0.20480000000000498 L93 0.13720000000000399 L94 0.08639999999999759 L95 0.050000000000005596 L96 0.025600000000003398 L97 0.010799999999999699 L98 0.0032000000000032003 L99 0.00040000000000040004 L100 0" />
+                            </svg>
+                        </button>
+                        <input type="number" id="polynomial-degree" min=0.1
+                            max=100 step=0.1 value="3" title="Degree for Polynomial Interpolation.&#10;Polynomial Interpolation with degree &gt; 1, each point favors the edge it's closer to more than Linear Interpolation.&#10;Polynomial Interpolation with degree &lt; 1, each point favors the edge it's closer to less than Linear Interpolation."/>
+                        <div style="margin-top: 10px;">
+                            Coons Patch
+                            <help id="coons-patch-help" title="Coons Patches are surfaces defined by four edges.&#10;Selecting from the below edge schemas defines how the back two edges behave.">?</help>
+                        </div>
+                        <button title="You design the back edges in the curve editor.">
+                            Four-Edge
+                        </button>
+                        <button title="Default Back Edges.&#10;The back edges are the same as would be defined by Linear Interpolation, and are natural to work with for many use-cases.">
+                            Standard
+                        </button>
+                        <button title="Straight Edges.&#10;The back edges are straight lines from the endpoints of the curves on the X and Y axes.">
+                            Straight-Edge
+                        </button>
+                        <button title="Opposite Edges.&#10;The back edges are the same as the edge they are across from.&#10;Requires all endpoints to have the same z-value.">
+                            Oppose-Edge
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+            <div class="grid-top-right">
+                
+            </div>
+
+            <div class="grid-bottom-right">
+            </div>
+        </grid-container>
+    </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="This is a 2D curve editor to be used in part with a graphical surface editor for mid-air haptic parameter control.">
+    <meta name="keywords" content="graphical surface editor, graphical curve editor, mid-air haptics, phased array control, haptic parameter design, user interface for mid-air haptics, development tool for mid-air haptics">
+    <meta name="author" content="James Weber">
+
+    <title>2D Curve Editor</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.1/lib/p5.min.js"></script>
+    <style>
+      inputs {
+        position: absolute;
+        left: 10px;
+        top: 0;
+      }
+      parambox {
+        display: block;
+        margin-top: 10px;
+      }
+      parambox input, label {
+        display: inline-block;
+        color: white;
+      }
+      parambox input {
+        outline: none;
+        border: none;
+        background: none;
+        width: 30px;
+      }
+
+      parambox  input::-webkit-outer-spin-button,
+      parambox input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script src="sketch.js"></script>
+    <script>
+      /* No Right Click Context Menu */
+      document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+      }, false);
+    </script>
+  </body>
+</html>
