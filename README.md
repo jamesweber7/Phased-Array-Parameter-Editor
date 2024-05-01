@@ -9,7 +9,9 @@ Submitted as an Honors Thesis to Barrett, The Honors College at Arizona State Un
 
 -------------------------------------------------
 
-<!-- Paper: <https://keep.lib.asu.edu/items/paper-number> -->
+Paper: [Design of a Graphical Multi-Input Surface Editor for Mid-Air Haptic Parameter Control](Design_of_a_Graphical_Multi-Input_Surface_Editor_for_Mid-Air_Haptic_Parameter_Control.pdf)
+
+<!-- Entry in KEEP digital library: <https://keep.lib.asu.edu/items/paper-number> -->
 
 Use: <https://main.d3jc0fo8rfy14f.amplifyapp.com/>
 
