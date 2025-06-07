@@ -13,7 +13,9 @@ Paper: [Design of a Graphical Multi-Input Surface Editor for Mid-Air Haptic Para
 
 Entry in KEEP digital library: <https://keep.lib.asu.edu/items/192726>
 
-Use: <https://main.d3jc0fo8rfy14f.amplifyapp.com/>
+Use: <https://phased-array-parameter-editor.jamesweber.dev>
+
+CDN: <https://pape-cdn.jamesweber.dev/ParameterEditor.js>
 
 -------------------------------------------------
 
@@ -31,6 +33,15 @@ Input parameters are whatever variables that you want to affect phased array out
 ## Use
 The editor can be used on its own from [Editor/index.html](Editor/index.html), or it can be used in an external software interfacing with [ParameterEditor.js](ParameterEditor.js).
 
+```
+<script src="https://pape-cdn.jamesweber.dev/ParameterEditor.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        ParameterEditor.init();
+    })
+</script>
+```
+
 Design a 3D surface's edges with the 2D curve editors. 
 
 In the 2D curve editors, drag control points, and click along the curve to add more control points. Change the curve type to steps, and use information about just noticeable differences to better understand how end-users will perceive changes in output.
@@ -44,7 +55,7 @@ In the 3D surface editor, choose an ideal interpolation method to define how the
 You can set up the editor by including this code snippet in your HTML page.
 
 ```
-<script src="https://parameter-editor.s3.amazonaws.com/ParameterEditor.js"></script>
+<script src="https://pape-cdn.jamesweber.dev/ParameterEditor.js"></script>
 ```
 
 Another option is to download this repository and directly integrate it into your software.
@@ -59,7 +70,7 @@ ParameterEditor.init(); // initialize the editor
 Initialization will connect to the editor via an HTML iframe element. The editor can connect to an existing iframe element, or create a new one
 
 ```
-ParameterEditor.init({id: iframe_id}); // connect to existing an iframe with id=iframe_id
+ParameterEditor.init({id: iframe_id}); // connect to an existing iframe with id=iframe_id
 ```
 
 Initialization Options
